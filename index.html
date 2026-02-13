@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Bulk Email Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="main-container">
+    <div class="header">
+        <h1>🚀 Ultimate Email Generator</h1>
+        <p>USA, UK, CA Based • Unlimited • 100% Unique</p>
+    </div>
+
+    <div class="control-panel">
+        <div class="input-group">
+            <label>Amount needed:</label>
+            <input type="number" id="emailCount" value="1000" min="1" placeholder="Ex: 50000">
+        </div>
+        
+        <div class="action-buttons">
+            <button onclick="startGeneration()" class="btn-primary">Generate Now</button>
+            <button onclick="downloadFile('txt')" class="btn-secondary" id="dl-txt" disabled>Download Text (.txt)</button>
+            <button onclick="downloadFile('csv')" class="btn-secondary" id="dl-csv" disabled>Download Excel (.csv)</button>
+        </div>
+    </div>
+
+    <div class="status-bar" id="statusBar">Status: Ready</div>
+    
+    <div class="preview-box">
+        <h3>Preview (First 50):</h3>
+        <textarea id="previewArea" readonly></textarea>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
