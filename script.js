@@ -946,90 +946,59 @@ function startGeneration() {
 
 // মেইন ফাংশন: একটি ইউনিক ইমেইল তৈরি
 function createUniqueEmail(forceRandom = false) {
-    const fname = getRandom(allFirstNames); // ছেলে বা মেয়ে যে কোনো নাম আসবে
+    // ১. সাধারণ ভেরিয়েবল
+    const fname = getRandom(allFirstNames);
     const lname = getRandom(lastNames);
     const place = getRandom(places);
     const food = getRandom(foods);
     const hobby = getRandom(hobbies);
     const domain = getRandom(domains);
+
+    // ২. নতুন ভেরিয়েবল (এইগুলো আপনার কোডে মিসিং ছিল - এখন যোগ করা হলো)
+    const prof = getRandom(professions);
+    const adj = getRandom(adjectives);
+    const color = getRandom(colors);
+    const animal = getRandom(animals);
+    const tech = getRandom(techWords);
     
     const year = getRandomNumber(1980, 2025);
-    const shortYear = year.toString().slice(-2); // 99, 00, 24
+    const shortYear = year.toString().slice(-2); 
     
-    // প্যাটার্ন সিলেকশন (১৮টি ভিন্ন স্টাইল)
-    let pattern = getRandomNumber(1, 12);
+    // ৩. প্যাটার্ন রেঞ্জ ঠিক করা হলো (12 এর বদলে 20)
+    let pattern = getRandomNumber(1, 20);
     let username = "";
 
-    // যদি ডুপ্লিকেট হয়, তবে ফোর্সফুলি র্যান্ডম নম্বর মোড চালু হবে
     if (forceRandom) pattern = 99; 
 
     // --- Patterns ---
     
-    // 1. Name + Year (john2024)
     if (pattern === 1) username = fname + lname + year;
-    
-    // 2. Name + Place (john_ny - clean later)
     else if (pattern === 2) username = fname + place + getRandomNumber(1, 99);
-    
-    // 3. Name + Food (johnpizza)
     else if (pattern === 3) username = fname + food + getRandomNumber(10, 999);
-    
-    // 4. Hobby + Name (gamerjohn)
     else if (pattern === 4) username = hobby + lname + year;
-    
-    // 5. Name + Hobby + Number (johngamer77)
     else if (pattern === 5) username = fname + hobby + getRandomNumber(100, 999);
-    
-    // 6. Lastname + Firstname + Place (smithjohnny)
     else if (pattern === 6) username = lname + fname + place;
-    
-    // 7. Place + Name (ny_john)
     else if (pattern === 7) username = place + fname + getRandomNumber(2000, 2025);
-    
-    // 8. Initials (j.smith24 - dot removed later)
     else if (pattern === 8) username = fname.charAt(0) + lname + getRandomNumber(1000, 9999);
-    
-    // 9. Short Name + Year (john88)
     else if (pattern === 9) username = fname + shortYear + lname;
-    
-    // 10. Food + Name + Year (burgerking2020)
     else if (pattern === 10) username = food + fname + year;
-
-    // 11. Complex (ny_gamer_john)
     else if (pattern === 11) username = place + hobby + fname;
-
-    // 12. Firstname + Lastname + Number
     else if (pattern === 12) username = fname + lname + getRandomNumber(1, 9);
 
-    // Pattern 13: Adjective + Name (Example: cooljames24)
+    // নতুন প্যাটার্নগুলো এখন কাজ করবে
     else if (pattern === 13) username = adj + fname + getRandomNumber(1, 99);
-
-    // Pattern 14: Profession + Lastname (Example: doctor_smith)
     else if (pattern === 14) username = prof + lname + getRandomNumber(10, 999);
-
-    // Pattern 15: Color + Animal (Example: bluetiger)
     else if (pattern === 15) username = color + animal + getRandomNumber(100, 999);
-
-    // Pattern 16: Tech + Name (Example: cyber_john)
     else if (pattern === 16) username = tech + fname + getRandomNumber(2000, 2025);
-
-    // Pattern 17: Name + Profession (Example: james_coder)
     else if (pattern === 17) username = fname + prof + getRandomNumber(1, 50);
-
-    // Pattern 18: Adjective + Animal (Example: happy_lion)
     else if (pattern === 18) username = adj + animal + getRandomNumber(10, 99);
-
-    // Pattern 19: Color + Name (Example: red_sara)
     else if (pattern === 19) username = color + fname + getRandomNumber(1000, 9999);
-
-    // Pattern 20: Complex (Example: doctor_cool_james)
     else if (pattern === 20) username = prof + adj + fname;
     
-    // Fallback/Force Random (ডুপ্লিকেট এড়াতে)
+    // Fallback
     else username = fname + lname + getRandomNumber(100000, 999999);
 
-    // *** CLEANING ***
-    // স্পেশাল ক্যারেক্টার রিমুভ (শুধুমাত্র a-z এবং 0-9 রাখা হবে)
+    // Cleaning
     let cleanUser = username.toLowerCase().replace(/[^a-z0-9]/g, "");
 
     return cleanUser + "@" + domain;
